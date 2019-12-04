@@ -55,4 +55,17 @@ class TasksViewModelTest {
             tasksViewModel.newTaskEvent.removeObserver(observer)
         }
     }
+
+    @Test
+    fun setFilterAllTasks_tasksAddViewVisible() {
+        // GIVEN
+        val tasksViewModel = TasksViewModel(ApplicationProvider.getApplicationContext())
+
+        // WHEN
+        tasksViewModel.setFiltering(TasksFilterType.ALL_TASKS)
+
+        // THEN
+        val result = tasksViewModel.tasksAddViewVisible.getOrAwaitValue()
+        assertThat(result).isTrue()
+    }
 }
