@@ -10,6 +10,7 @@ import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
 import com.google.common.truth.Truth.assertThat
+import org.junit.Before
 
 @RunWith(AndroidJUnit4::class)
 class TasksViewModelTest {
@@ -17,11 +18,18 @@ class TasksViewModelTest {
     @get: Rule
     var instantTaskExecutorRule =  InstantTaskExecutorRule()
 
+
+    // DO NOT initialize as val so that the same instance is not used in all tests.
+    private lateinit var tasksViewModel: TasksViewModel
+
+    @Before
+    fun setupViewModel() {
+        // GIVEN a fresh ViewModel
+        tasksViewModel = TasksViewModel(ApplicationProvider.getApplicationContext())
+    }
+
     @Test
     fun addNewTask_setsNewTaskEvent() {
-        // GIVEN a fresh ViewModel
-        val tasksViewModel = TasksViewModel(ApplicationProvider.getApplicationContext())
-
         // WHEN
         tasksViewModel.addNewTask()
 
@@ -35,9 +43,6 @@ class TasksViewModelTest {
      */
     @Test
     fun addNewTask_setsNewTaskEvent_OLDVERSION() {
-        // GIVEN a fresh ViewModel
-        val tasksViewModel = TasksViewModel(ApplicationProvider.getApplicationContext())
-
         val observer = Observer<Event<Unit>> {}
 
         try {
@@ -58,9 +63,6 @@ class TasksViewModelTest {
 
     @Test
     fun setFilterAllTasks_tasksAddViewVisible() {
-        // GIVEN
-        val tasksViewModel = TasksViewModel(ApplicationProvider.getApplicationContext())
-
         // WHEN
         tasksViewModel.setFiltering(TasksFilterType.ALL_TASKS)
 
