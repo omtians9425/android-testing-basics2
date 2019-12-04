@@ -5,6 +5,7 @@ import androidx.lifecycle.Observer
 import androidx.test.core.app.ApplicationProvider
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.example.android.architecture.blueprints.todoapp.Event
+import com.example.android.architecture.blueprints.todoapp.getOrAwaitValue
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -18,6 +19,22 @@ class TasksViewModelTest {
 
     @Test
     fun addNewTask_setsNewTaskEvent() {
+        // GIVEN a fresh ViewModel
+        val tasksViewModel = TasksViewModel(ApplicationProvider.getApplicationContext())
+
+        // WHEN
+        tasksViewModel.addNewTask()
+
+        // THEN
+        val result = tasksViewModel.newTaskEvent.getOrAwaitValue()
+        assertThat(result.getContentIfNotHandled()).isNotEqualTo(null)
+    }
+
+    /*
+    Old version of above. This observe LiveData manually without Util.
+     */
+    @Test
+    fun addNewTask_setsNewTaskEvent_OLDVERSION() {
         // GIVEN a fresh ViewModel
         val tasksViewModel = TasksViewModel(ApplicationProvider.getApplicationContext())
 
