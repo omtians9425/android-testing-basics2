@@ -20,6 +20,9 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
+    testOptions.unitTests {
+        includeAndroidResources = true
+    }
 
     dataBinding {
         enabled = true
@@ -64,4 +67,10 @@ dependencies {
     implementation "androidx.fragment:fragment-ktx:$fragmentKtxVersion"
 
     testImplementation "com.google.truth:truth:1.0"
+
+    testImplementation "androidx.test.ext:junit-ktx:$androidXTestExtKotlinRunnerVersion"
+    testImplementation "androidx.test:core-ktx:$androidXTestCoreVersion"
+    testImplementation "org.robolectric:robolectric:$robolectricVersion"
+    testImplementation "androidx.arch.core:core-testing:$archTestingVersion"
+
 }
