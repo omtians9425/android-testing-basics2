@@ -34,9 +34,9 @@ import kotlinx.coroutines.withContext
 /**
  * Concrete implementation to load tasks from the data sources into a cache.
  */
-class DefaultTasksRepository private constructor(
+class DefaultTasksRepository constructor(
         private val tasksRemoteDataSource: TasksDataSource,
-        private val tasksLocalDataSource: TasksLocalDataSource,
+        private val tasksLocalDataSource: TasksDataSource,
         private val ioDispatcher: CoroutineDispatcher = Dispatchers.IO
 ) {
 
