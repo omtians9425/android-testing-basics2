@@ -10,11 +10,9 @@ import com.example.android.architecture.blueprints.todoapp.data.source.FakeTasks
 import com.example.android.architecture.blueprints.todoapp.getOrAwaitValue
 import org.junit.Rule
 import org.junit.Test
-import org.junit.runner.RunWith
 import com.google.common.truth.Truth.assertThat
 import org.junit.Before
 
-@RunWith(AndroidJUnit4::class)
 class TasksViewModelTest {
 
     private lateinit var tasksRepository: FakeTasksRepository
