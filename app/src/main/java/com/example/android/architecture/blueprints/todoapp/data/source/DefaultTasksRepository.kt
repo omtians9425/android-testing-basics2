@@ -40,21 +40,6 @@ class DefaultTasksRepository constructor(
         private val ioDispatcher: CoroutineDispatcher = Dispatchers.IO
 ) : TasksRepository {
 
-    companion object {
-        @Volatile
-        private var INSTANCE: DefaultTasksRepository? = null
-
-        fun getRepository(app: Application): DefaultTasksRepository {
-            return INSTANCE ?: synchronized(this) {
-                val db = Room.databaseBuilder(app, ToDoDatabase::class.java, "Tasks.db")
-                        .build()
-                DefaultTasksRepository(TasksRemoteDataSource, TasksLocalDataSource(db.taskDao())).also {
-                    INSTANCE = it
-                }
-            }
-        }
-    }
-
     override suspend fun getTasks(forceUpdate: Boolean): Result<List<Task>> {
         if (forceUpdate) {
             try {
